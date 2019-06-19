@@ -4,7 +4,7 @@ import shutil, os
 import sqlite3 as sql
 import datetime, time
 # CUSTOM SCRIPTS
-from MODEL import file_transfer_data as data
+from CONTROLLER import file_transfer_data as data
 
 
 #DEFINE GLOBALS

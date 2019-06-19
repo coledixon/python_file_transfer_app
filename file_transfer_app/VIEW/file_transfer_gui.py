@@ -4,7 +4,7 @@ from tkinter import messagebox as mb
 from tkinter import filedialog as fd
 # CUSTOM SCRIPTS
 from CONTROLLER import file_transfer_controller as ctrl
-from MODEL import file_transfer_data as data
+from CONTROLLER import file_transfer_data as data
 
 class FileTransfer:
 
