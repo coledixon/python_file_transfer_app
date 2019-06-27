@@ -8,7 +8,7 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "C:\\Users\\Cole Dixon\\PROJECTS\\Python-projects\\file_transfer_app\\app_main.py",
+            "program": "C:\\Users\\Cole Dixon\\PROJECTS\\python_file_transfer_app\\file_transfer_app\\app_main.py",
             "console": "integratedTerminal"
         }
     ]
