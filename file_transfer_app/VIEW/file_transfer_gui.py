@@ -10,7 +10,36 @@ class FileTransfer:
 
     def __init__(self, master):
 
-        # MASTER SETTINGS
+        # Frame.__init__(self)
+
+        self.master = master
+        self.master.minsize(500, 200)
+        self.master.maxsize(500, 200)
+        self.master.title('FILE TRANSFER')
+        self.master.resizable(False, False)
+        self.master.configure(background = 'black')
+
+        self.file_entry = Entry(self.master, text='', width=52)
+        self.file_entry.grid(row=0, column=1, padx=(30, 0), pady=(50, 0), sticky=NW)
+        self.file_dest = Entry(self.master, text='', width=52)
+        self.file_dest.grid(row=1, column=1, padx=(30, 0), pady=(10, 0), sticky=NW)
+
+        self.btnRoot = Button(self.master, text='Browse...', width=15, height=1)
+        self.btnRoot.grid(row=0, column=0, padx=(20, 0), pady=(50, 0))
+        self.btnDest = Button(self.master, text='Browse...', width=15, height=1)
+        self.btnDest.grid(row=1, column=0, padx=(20, 0), pady=(10, 0))
+        self.btnCheck = Button(self.master, text='Check for files...', width=15, height=3)
+        self.btnCheck.grid(row=2, column=0, padx=(20, 0), pady=(10, 0))
+        self.btnCancel = Button(self.master, text='Close Program', width=15, height=3)
+        self.btnCancel.grid(row=2, column=1, padx=(20, 0), pady=(10, 0), sticky=E)
+
+        # BIND BUTTON EVENTS
+        # self.btnTransfer.bind('<1>', lambda e: ctrl.transfer_(self))
+        # self.btnClear.bind('<1>', lambda e: ctrl.clear_(self))
+        self.btnRoot.bind('<1>', lambda e: ctrl.browseRoot_(self))
+        self.btnDest.bind('<1>', lambda e: ctrl.browseDest_(self))
+
+"""         # MASTER SETTINGS
         master.title('FILE TRANSFER')
         master.resizable(False, False)
         master.configure(background = 'black')
@@ -65,10 +94,4 @@ class FileTransfer:
         # PROGRESS BAR
         value = IntVar()
         self.prog = ttk.Progressbar(self.content, orient = HORIZONTAL, length = 250, maximum = 50.0, value = 0)
-        #self.prog.grid(row = 4, column = 1)
-
-        # BIND BUTTON EVENTS
-        self.btnTransfer.bind('<1>', lambda e: ctrl.transfer_(self))
-        self.btnClear.bind('<1>', lambda e: ctrl.clear_(self))
-        self.btnRoot.bind('<1>', lambda e: ctrl.browseRoot_(self))
-        self.btnDest.bind('<1>', lambda e: ctrl.browseDest_(self))
+        #self.prog.grid(row = 4, column = 1) """
