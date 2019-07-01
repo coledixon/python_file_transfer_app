@@ -49,9 +49,13 @@ def transfer_(self):
             mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
 
 def transferAll_(self, p, d):
-    dircontents = os.listdir(p)
-    for f in dircontents:
-        shutil.move(p+ '\\' +f, d)
+    p = parseToRoot_(self, p)
+    res = evalPaths_(p, d)
+    if res != False:
+        dircontents = os.listdir(p)
+        for f in dircontents:
+            shutil.move(p+ '\\' +f, d)
+            clear_(self)
 
 # DEFINE HELPERS
 def evalPaths_(p, d):
@@ -73,6 +77,14 @@ def evalCheckState_(self):
         return True
     else:
         return False
+
+def parseToRoot_(self, p):
+    # if 'MOVE ALL' is checked and single file is selected, parse to root
+    if '.' in p: # '.' indicates a file / not a root dir
+        p = os.path.dirname(p) # parse to root
+        self.file_dest.delete(0, 'end')
+        self.file_dest.insert(0, p)
+        return p
 
 
 
