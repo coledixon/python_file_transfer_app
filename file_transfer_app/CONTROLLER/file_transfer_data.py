@@ -4,7 +4,7 @@ import sqlite3 as sql
 from CONTROLLER import file_transfer_controller as ctrl
 
 
-#DEFINE GLOBALS
+# DEFINE GLOBALS
 global conn
 global transId
 global success
