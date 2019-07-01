@@ -44,7 +44,12 @@ class FileTransfer:
         self.prog = ttk.Progressbar(master, orient=HORIZONTAL, length=455, mode='determinate')
         self.prog.grid(row=0, column=1, pady=(30, 10))
         self.prog.place(relx=0.5, rely=0.1, anchor='c')
-        
+
+        # FORM CHECKBUTTON
+        self.check = ttk.Checkbutton(master, text="MOVE ALL FILES")
+        self.check.grid(row=3, column=0)
+        self.check.place(relx=0.4, rely=0.65, anchor='c')
+
 """         # MASTER SETTINGS
         master.title('FILE TRANSFER')
         master.resizable(False, False)
