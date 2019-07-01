@@ -51,7 +51,7 @@ def transfer_(self):
 def transferAll_(self, p, d):
     dircontents = os.listdir(p)
     for f in dircontents:
-        shutil.copy(p+ '\\' +f, d)
+        shutil.move(p+ '\\' +f, d)
 
 # DEFINE HELPERS
 def evalPaths_(p, d):
