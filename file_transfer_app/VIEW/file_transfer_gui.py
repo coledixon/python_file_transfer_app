@@ -10,6 +10,9 @@ class FileTransfer:
 
     def __init__(self, master):
 
+        # DEFINE GLOBALS
+        self.chk = BooleanVar()
+
         # MASTER SETTINGS
         self.master = master
         self.master.minsize(500, 200)
@@ -46,9 +49,10 @@ class FileTransfer:
         self.prog.place(relx=0.5, rely=0.1, anchor='c')
 
         # FORM CHECKBUTTON
-        self.check = ttk.Checkbutton(master, text="MOVE ALL FILES")
+        self.check = ttk.Checkbutton(master, text="MOVE ALL FILES", onvalue=1, offvalue=0, variable=self.chk)
         self.check.grid(row=3, column=0)
         self.check.place(relx=0.4, rely=0.65, anchor='c')
+
 
 """         # MASTER SETTINGS
         master.title('FILE TRANSFER')

@@ -7,24 +7,37 @@ import datetime, time
 from CONTROLLER import file_transfer_data as data
 
 
-#DEFINE GLOBALS
+# DEFINE GLOBALS
 global path
 global dest
+global chk
+global dirname
 
 
 # BUTTON EVENTS
 def transfer_(self):
+    chk = self.chk.get()
     path = self.file_entry.get()
     dest = self.file_dest.get()
     res = evalPaths_(path, dest)
+    if chk != False:
+        transferAll_(self)
     if res != False:
         shutil.copy(path, dest)
         data.insertTran_(self, path, dest, os, datetime, time)
         clear_(self)
         mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
 
+def transferAll_(self):
+    return None
+
 def browseRoot_(self):
-    dirname = fd.askopenfilename()
+    # dirname = fd.askopenfilename()
+    res = evalCheckState_(self)
+    if res != False:
+        dirname = fd.askdirectory()
+    else:
+        dirname = fd.askopenfilename()
     self.file_entry.delete(0, 'end')
     self.file_entry.insert(0, dirname)
 
@@ -51,6 +64,15 @@ def evalPaths_(p, d):
         return False
     else:
         return True
+
+def evalCheckState_(self):
+    chk = self.chk.get()
+    if chk == True:
+        return True
+    else:
+        return False
+
+
 
 # def insertFile_(self):
 #     evalPaths_(path, dest)
