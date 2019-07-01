@@ -15,26 +15,9 @@ global dirname
 
 
 # BUTTON EVENTS
-def transfer_(self):
-    chk = self.chk.get()
-    path = self.file_entry.get()
-    dest = self.file_dest.get()
-    res = evalPaths_(path, dest)
-    if chk != False:
-        transferAll_(self)
-    if res != False:
-        shutil.copy(path, dest)
-        data.insertTran_(self, path, dest, os, datetime, time)
-        clear_(self)
-        mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
-
-def transferAll_(self):
-    return None
-
 def browseRoot_(self):
-    # dirname = fd.askopenfilename()
     res = evalCheckState_(self)
-    if res != False:
+    if res != False: # dynamically set functionality based on 'MOVE ALL' checkbutton
         dirname = fd.askdirectory()
     else:
         dirname = fd.askopenfilename()
@@ -50,6 +33,25 @@ def clear_(self):
     self.file_entry.delete(0,'end')
     self.file_dest.delete(0,'end')
 
+# CORE METHODS
+def transfer_(self):
+    chk = self.chk.get()
+    path = self.file_entry.get()
+    dest = self.file_dest.get()
+    res = evalPaths_(path, dest)
+    if chk != False:
+        transferAll_(self, path, dest)
+    else:
+        if res != False:
+            shutil.copy(path, dest)
+            data.insertTran_(self, path, dest, os, datetime, time)
+            clear_(self)
+            mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
+
+def transferAll_(self, p, d):
+    dircontents = os.listdir(p)
+    for f in dircontents:
+        shutil.copy(p+ '\\' +f, d)
 
 # DEFINE HELPERS
 def evalPaths_(p, d):
