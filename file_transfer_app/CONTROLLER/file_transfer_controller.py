@@ -85,7 +85,8 @@ def parseToRoot_(self, p):
         self.file_dest.delete(0, 'end')
         self.file_dest.insert(0, p)
         return p
-
+    else:
+        return p
 
 
 # def insertFile_(self):
