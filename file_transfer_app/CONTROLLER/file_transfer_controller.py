@@ -56,6 +56,7 @@ def transferAll_(self, p, d):
         for f in dircontents:
             shutil.move(p+ '\\' +f, d)
             clear_(self)
+        mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %d)
 
 # DEFINE HELPERS
 def evalPaths_(p, d):

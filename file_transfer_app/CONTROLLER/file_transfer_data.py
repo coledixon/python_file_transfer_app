@@ -17,7 +17,6 @@ def connectDb():
         return conn
     except sql.Error as e:
         mb.showinfo(title='ERROR', message='SQLite error on db connection file_transfer_data.connectDb(): ' + e.args[0])
- 
     return None
 
 
@@ -32,7 +31,7 @@ def insertTran_(self, path, dest, os, datetime, time):
         transId +=1
         try:
             cur.execute("INSERT INTO file_transfer VALUES(?,?,?,?)",
-                    (transId, i, i, self.comments.get(1.0,'end')))
+                    (transId, i, i, ''))
             conn.commit()
             insertFile_(self, path, dest, os)
         except sql.Error as e:
