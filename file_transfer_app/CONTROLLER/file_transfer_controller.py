@@ -44,25 +44,29 @@ def transfer_(self):
     else:
         if res != False:
             startProgressbar_(self)
-            shutil.copy(path, dest)
-            setProgress_(self, False, 1)
+            shutil.move(path, dest)
+            step = int(100 / len(dircontents))
+            setProgress_(self, step)
             # data.insertTran_(self, path, dest, os, datetime, time)
             clear_(self)
-            mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
             stopProgressbar_(self)
+            mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
 
 def transferAll_(self, p, d):
     p = parseToRoot_(self, p)
     res = evalPaths_(p, d)
     if res != False:
         dircontents = os.listdir(p)
-        files = len(dircontents)
+        base = int(100 / len(dircontents)) # control val for incrementing progress
+        step = base # step val
         startProgressbar_(self)
         for f in dircontents:
             shutil.move(p+ '\\' +f, d)
-            progressStatus_(self, True, files)
-            files = (files-1)
+            setProgress_(self, step)
+            if step < 100: # max determinate val for progressbar
+                step = int(step + base) # increment progress step val
         clear_(self)
+        stopProgressbar_(self)
         mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %d)
 
 # PROGRESS BAR CONTROL(S)
@@ -72,18 +76,8 @@ def startProgressbar_(self):
 def stopProgressbar_(self):
     self.prog.stop()
 
-def setProgress_(self, moveAll, fileCnt):
-    if moveAll == False:
-        self.prog['maximum']=1
-        self.prog['value']=1
-    else:
-        self.prog['maximum']=100
-        self.prog.step(20)
-        #setProgress_(self, fileCnt)
-
-#def setProgress_(self, fileCnt):
-#    self.prog['value'] = int(float(files) / float(files) * 100)
-
+def setProgress_(self, step):
+    self.prog.step(step)
 
 # DEFINE HELPERS
 def evalPaths_(p, d):
