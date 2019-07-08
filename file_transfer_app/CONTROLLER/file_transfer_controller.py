@@ -43,26 +43,47 @@ def transfer_(self):
         transferAll_(self, path, dest)
     else:
         if res != False:
+            startProgressbar_(self)
             shutil.copy(path, dest)
-            progressStatus_(self)
+            setProgress_(self, False, 1)
             # data.insertTran_(self, path, dest, os, datetime, time)
             clear_(self)
             mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
+            stopProgressbar_(self)
 
 def transferAll_(self, p, d):
     p = parseToRoot_(self, p)
     res = evalPaths_(p, d)
     if res != False:
         dircontents = os.listdir(p)
+        files = len(dircontents)
+        startProgressbar_(self)
         for f in dircontents:
             shutil.move(p+ '\\' +f, d)
-            clear_(self)
+            progressStatus_(self, True, files)
+            files = (files-1)
+        clear_(self)
         mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %d)
 
-# PROGRESS BAR CONTROL
-def progressStatus_(self):
+# PROGRESS BAR CONTROL(S)
+def startProgressbar_(self):
     self.prog.start()
-    return None
+
+def stopProgressbar_(self):
+    self.prog.stop()
+
+def setProgress_(self, moveAll, fileCnt):
+    if moveAll == False:
+        self.prog['maximum']=1
+        self.prog['value']=1
+    else:
+        self.prog['maximum']=100
+        self.prog.step(20)
+        #setProgress_(self, fileCnt)
+
+#def setProgress_(self, fileCnt):
+#    self.prog['value'] = int(float(files) / float(files) * 100)
+
 
 # DEFINE HELPERS
 def evalPaths_(p, d):
