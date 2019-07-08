@@ -35,14 +35,14 @@ def clear_(self):
 
 # CORE METHODS
 def transfer_(self):
-    chk = self.chk.get()
+    # chk = self.chk.get()
     path = self.file_entry.get()
     dest = self.file_dest.get()
-    res = evalPaths_(path, dest)
-    if chk != False:
+    # res = evalPaths_(path, dest)
+    if self.chk.get() != False:
         transferAll_(self, path, dest)
     else:
-        if res != False:
+        if evalPaths_(path, dest) != False:
             startProgressbar_(self)
             shutil.move(path, dest)
             step = int(100 / len(dircontents))
@@ -54,9 +54,11 @@ def transfer_(self):
 
 def transferAll_(self, p, d):
     p = parseToRoot_(self, p)
-    res = evalPaths_(p, d)
-    if res != False:
+    # res = evalPaths_(p, d)
+    if evalPaths_(p,d) != False:
         dircontents = os.listdir(p)
+        if evalDirContents_(self, len(dircontents)) == False:
+            return None
         base = int(100 / len(dircontents)) # control val for incrementing progress
         step = base # step val
         startProgressbar_(self)
@@ -78,6 +80,7 @@ def stopProgressbar_(self):
 
 def setProgress_(self, step):
     self.prog.step(step)
+    self.prog.update_idletasks()
 
 # DEFINE HELPERS
 def evalPaths_(p, d):
@@ -99,6 +102,12 @@ def evalCheckState_(self):
         return True
     else:
         return False
+
+def evalDirContents_(self, cont):
+    if cont == 0:
+        mb.showinfo(title='FILE TRANSFER', message='No files to move in specified location')
+        clear_(self)
+        return False # abort method if no files to relocate
 
 def parseToRoot_(self, p):
     # if 'MOVE ALL' is checked and single file is selected, parse to root
