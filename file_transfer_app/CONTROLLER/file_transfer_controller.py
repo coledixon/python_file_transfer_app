@@ -16,8 +16,8 @@ global dirname
 
 # BUTTON EVENTS
 def browseRoot_(self):
-    res = evalCheckState_(self)
-    if res != False: # dynamically set functionality based on 'MOVE ALL' checkbutton
+    # CD REMOVED: res = evalCheckState_(self)
+    if evalCheckState_(self) != False: # dynamically set functionality based on 'MOVE ALL' checkbutton
         dirname = fd.askdirectory()
     else:
         dirname = fd.askopenfilename()
@@ -35,10 +35,10 @@ def clear_(self):
 
 # CORE METHODS
 def transfer_(self):
-    # chk = self.chk.get()
+    # CD REMOVED: chk = self.chk.get()
     path = self.file_entry.get()
     dest = self.file_dest.get()
-    # res = evalPaths_(path, dest)
+    # CD REMOVED: res = evalPaths_(path, dest)
     if self.chk.get() != False:
         transferAll_(self, path, dest)
     else:
@@ -54,7 +54,7 @@ def transfer_(self):
 
 def transferAll_(self, p, d):
     p = parseToRoot_(self, p)
-    # res = evalPaths_(p, d)
+    # CD REMOVED: res = evalPaths_(p, d)
     if evalPaths_(p,d) != False:
         dircontents = os.listdir(p)
         if evalDirContents_(self, len(dircontents)) == False:
@@ -80,6 +80,7 @@ def stopProgressbar_(self):
 
 def setProgress_(self, step):
     self.prog.step(step)
+    time.sleep(1)
     self.prog.update_idletasks()
 
 # DEFINE HELPERS
@@ -97,8 +98,8 @@ def evalPaths_(p, d):
         return True
 
 def evalCheckState_(self):
-    chk = self.chk.get()
-    if chk == True:
+    # CD REMOVED: chk = self.chk.get()
+    if self.chk.get() == True:
         return True
     else:
         return False
