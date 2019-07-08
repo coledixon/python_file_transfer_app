@@ -44,7 +44,8 @@ def transfer_(self):
     else:
         if res != False:
             shutil.copy(path, dest)
-            data.insertTran_(self, path, dest, os, datetime, time)
+            progressStatus_(self)
+            # data.insertTran_(self, path, dest, os, datetime, time)
             clear_(self)
             mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
 
@@ -57,6 +58,11 @@ def transferAll_(self, p, d):
             shutil.move(p+ '\\' +f, d)
             clear_(self)
         mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %d)
+
+# PROGRESS BAR CONTROL
+def progressStatus_(self):
+    self.prog.start()
+    return None
 
 # DEFINE HELPERS
 def evalPaths_(p, d):
