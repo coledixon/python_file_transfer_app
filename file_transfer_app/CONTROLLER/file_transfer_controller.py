@@ -53,9 +53,9 @@ def transfer_(self):
             mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
 
 def transferAll_(self, p, d):
-    p = parseToRoot_(self, p)
     # CD REMOVED: res = evalPaths_(p, d)
     if evalPaths_(p,d) != False:
+        p = parseToRoot_(self, p)
         dircontents = os.listdir(p)
         if evalDirContents_(self, len(dircontents)) == False:
             return None
@@ -89,6 +89,8 @@ def evalPaths_(p, d):
         mb.showerror(title="ERROR", message="ROOT CANNOT BE NULL")
         return False
     elif not d:
+        if d == parseToRoot_(p):
+            mb.showerror(title="ERROR", message="ROOT AND DEST CANNOT BE THE SAME PATH")
         mb.showerror(title="ERROR", message="DEST CANNOT BE NULL")
         return False
     elif p == d:
