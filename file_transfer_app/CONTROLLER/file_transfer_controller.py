@@ -8,10 +8,11 @@ from CONTROLLER import file_transfer_data as data
 
 
 # DEFINE GLOBALS
-global path
-global dest
-global chk
-global dirname
+path = "" # CD debug: global
+dest = "" # CD debug: global
+# CD debug: learn global var in python
+# global chk
+# global dirname
 
 
 # BUTTON EVENTS
@@ -36,13 +37,13 @@ def clear_(self):
 # CORE METHODS
 def transfer_(self):
     # CD REMOVED: chk = self.chk.get()
-    path = self.file_entry.get()
-    dest = self.file_dest.get()
+    path = self.file_entry.get() # CD debug: global
+    dest = self.file_dest.get() # CD debug: global
     # CD REMOVED: res = evalPaths_(path, dest)
     if self.chk.get() != False:
         transferAll_(self, path, dest)
     else:
-        if evalPaths_(path, dest) != False:
+        if evalPaths_(path, dest) != False: # CD debug: pass self.file_entry/dest.get() direct to method???
             startProgressbar_(self)
             shutil.move(path, dest)
             step = int(100 / len(dircontents))
@@ -53,9 +54,9 @@ def transfer_(self):
             mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
 
 def transferAll_(self, p, d):
+    path = parseToRoot_(self, p)
     # CD REMOVED: res = evalPaths_(p, d)
     if evalPaths_(p,d) != False:
-        p = parseToRoot_(self, p)
         dircontents = os.listdir(p)
         if evalDirContents_(self, len(dircontents)) == False:
             return None
@@ -89,8 +90,6 @@ def evalPaths_(p, d):
         mb.showerror(title="ERROR", message="ROOT CANNOT BE NULL")
         return False
     elif not d:
-        if d == parseToRoot_(p):
-            mb.showerror(title="ERROR", message="ROOT AND DEST CANNOT BE THE SAME PATH")
         mb.showerror(title="ERROR", message="DEST CANNOT BE NULL")
         return False
     elif p == d:
