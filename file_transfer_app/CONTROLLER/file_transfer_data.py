@@ -5,9 +5,10 @@ from CONTROLLER import file_transfer_controller as ctrl
 
 
 # DEFINE GLOBALS
-global conn
-global transId
-global success
+# CD debug: learn global vars in python
+# global conn
+# global transId
+# global success
 
 
 # DEFINE DATABASE CONNECTION
