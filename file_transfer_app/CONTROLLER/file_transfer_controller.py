@@ -16,11 +16,10 @@ dirname = ""
 # BUTTON EVENTS
 def browseRoot_(self):
     # CD REMOVED: res = evalCheckState_(self)
+    global dirname
     if evalCheckState_(self) != False: # dynamically set functionality based on 'MOVE ALL' checkbutton
-        global dirname 
         dirname = fd.askdirectory()
     else:
-        global dirname 
         dirname = fd.askopenfilename()
     self.file_entry.delete(0, 'end')
     self.file_entry.insert(0, dirname)
