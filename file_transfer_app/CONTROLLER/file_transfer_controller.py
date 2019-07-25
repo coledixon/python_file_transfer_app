@@ -8,19 +8,19 @@ from CONTROLLER import file_transfer_data as data
 
 
 # DEFINE GLOBALS
-path = "" # CD debug: global
-dest = "" # CD debug: global
-# CD debug: learn global var in python
-# global chk
-# global dirname
+path = ""
+dest = ""
+dirname = ""
 
 
 # BUTTON EVENTS
 def browseRoot_(self):
     # CD REMOVED: res = evalCheckState_(self)
     if evalCheckState_(self) != False: # dynamically set functionality based on 'MOVE ALL' checkbutton
+        global dirname 
         dirname = fd.askdirectory()
     else:
+        global dirname 
         dirname = fd.askopenfilename()
     self.file_entry.delete(0, 'end')
     self.file_entry.insert(0, dirname)
@@ -37,8 +37,11 @@ def clear_(self):
 # CORE METHODS
 def transfer_(self):
     # CD REMOVED: chk = self.chk.get()
+    global path 
     path = self.file_entry.get() # CD debug: global
+    global dest 
     dest = self.file_dest.get() # CD debug: global
+
     # CD REMOVED: res = evalPaths_(path, dest)
     if self.chk.get() != False:
         transferAll_(self, path, dest)
@@ -54,6 +57,7 @@ def transfer_(self):
             mb.showinfo(title='FILE TRANSFER', message='File transferred to %s' %dest)
 
 def transferAll_(self, p, d):
+    global path 
     path = parseToRoot_(self, p)
     # CD REMOVED: res = evalPaths_(p, d)
     if evalPaths_(p,d) != False:
@@ -120,19 +124,3 @@ def parseToRoot_(self, p):
         return p
     else:
         return p
-
-
-# def insertFile_(self):
-#     evalPaths_(path, dest)
-#     # path = self.file_entry.get()
-#     # dest = self.file_dest.get()
-#     type = os.path.splitext(self.file_entry.get())[1]
-#     TransID = 0
-#     FileID = 0
-#     self.c.execute("INSERT INTO FileInfo VALUES(?,?,?,?,?)",
-#                 (FileID, path, newpath, type, TransID))
-#     self.conn.commit()
-
-# def lastTransfer_(self):
-#     timeran = time.clock()
-#     print(timeran)
