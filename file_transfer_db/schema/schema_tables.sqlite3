@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS file_transfer
+GO
+
+CREATE TABLE file_transfer (tranId INTEGER PRIMARY KEY AUTOINCREMENT,
+            recentMods TEXT not null,
+            transDate TEXT not null,
+            comments TEXT null)
+GO
+
+DROP TABLE IF EXISTS program
+GO
+
+CREATE TABLE program (programId INT not null,
+            programName TEXT not null,
+            transDate TEXT not null,
+            tranId INT not null,
+            FOREIGN KEY (tranId) REFERENCES file_transfer(tranId))
+GO
+
+DROP TABLE IF EXISTS file_info
+GO
+
+CREATE TABLE file_info (fileId INTEGER PRIMARY KEY AUTOINCREMENT,
+            root VARCHAR(80) not null,
+            dest VARCHAR(80) not null,
+            fileType VARCHAR(20) not null,
+            tranId INT not null,
+            FOREIGN KEY (tranId) REFERENCES file_transfer(tranId))
